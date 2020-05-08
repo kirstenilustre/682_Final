@@ -32,3 +32,12 @@ The number of shooting incidents detected by ShotSpotter per 10,000 people in ea
 6. 37.1
 7. 232.2
 8. 289.0
+
+# Automation
+
+As stated in the introduction, the calculations for this analysis were automated using the QGIS Python Console. The python code began by importing the package necessary to run the analysis and then added all three vector layers to the display. The code extracted the gun incidents from the original crime layer and defined it as a new object. Then, the code extracted shooting incidents that occurred in 2017 from the original layer and defined it into a new vector object.
+```
+processing.run("native:extractbyattribute",{'INPUT':shootings,'FIELD':"DATETIME",'OPERATOR':6,\
+'VALUE':2017,'OUTPUT':"S:/682/Spring20/kilustre/shootings2017.shp"})
+shootings2017 = "S:/682/Spring20/kilustre/shootings2017.shp"
+```
