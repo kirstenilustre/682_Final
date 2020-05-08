@@ -41,3 +41,15 @@ processing.run("native:extractbyattribute",{'INPUT':shootings,'FIELD':"DATETIME"
 'VALUE':2017,'OUTPUT':"S:/682/Spring20/kilustre/shootings2017.shp"})
 shootings2017 = "S:/682/Spring20/kilustre/shootings2017.shp"
 ```
+Next, two joins were performed. The first one joined the extracted gun crime incidents layer into the DC wards layer, while the second one joined the extracted shooting incidents layer into the DC wards layer. The code then added the first join layer to the display and created two new attribute fields. The first attribute defined the crime incidents per person while the second attribute defined the crime incidents per 10,000 people. 
+```
+crimesjoin = iface.addVectorLayer(crime_join,"crime_join","ogr")
+pv = crimesjoin.dataProvider() #get provder for vector layer
+pv.addAttributes([QgsField('per_person',QVariant.Double),\
+QgsField('per10thous',QVariant.Double)]) 
+```
+Next, the code prepared to update these attributes and defined two expressions to carry out the necessary calculations for the attributes. The first expression divided the number of crime incidents by 2010 population values. The second expression multiplied the values calculated from the first expression by 10,000.
+```
+expression1 = QgsExpression('"CCN_count"/"POP_2010"')
+expression2 = QgsExpression('"per_person"*10000')
+```
