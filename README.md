@@ -53,3 +53,19 @@ Next, the code prepared to update these attributes and defined two expressions t
 expression1 = QgsExpression('"CCN_count"/"POP_2010"')
 expression2 = QgsExpression('"per_person"*10000')
 ```
+The context for the expressions was given and then the code performed two functions. The first function calculated the number of crime incidents per person and updated its attribute field. 
+```
+with edit(crimesjoin):
+    for f in crimesjoin.getFeatures():
+        context.setFeature(f)
+        f['per_person'] = expression1.evaluate(context)
+        crimesjoin.updateFeature(f)
+```
+The second function multiplied the values from the previous function and updated its attribute fields. This function calculated the number of crime incidents per 10,000 people in each ward. 
+with edit (crimesjoin):
+```
+for f in crimesjoin.getFeatures():
+        context.setFeature(f)
+        f['per10thous'] = expression2.evaluate(context)
+        crimesjoin.updateFeature(f)
+```
