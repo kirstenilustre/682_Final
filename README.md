@@ -12,3 +12,23 @@ Two thematic maps were created to assist in the goals of this analysis. The firs
 
 ![](CrimeIncidents2017.jpeg)
 ![](ShootingIncidents2017.jpeg)
+
+The number of gun crimes committed per 10,000 people in each 2017 ward:
+1. 15.3
+2. 7.0
+3. 2.7
+4. 16.6
+5. 36.1
+6. 21.2
+7. 57.8
+8. 57.7
+
+The number of shooting incidents detected by ShotSpotter per 10,000 people in each 2017 ward:
+1. 16.5
+2. 0.3
+3. 0.0
+4. 20.9
+5. 56.5
+6. 37.1
+7. 232.2
+8. 289.0
