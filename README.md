@@ -48,7 +48,7 @@ pv = crimesjoin.dataProvider() #get provder for vector layer
 pv.addAttributes([QgsField('per_person',QVariant.Double),\
 QgsField('per10thous',QVariant.Double)]) 
 ```
-Next, the code prepared to update these attributes and defined two expressions to carry out the necessary calculations for the attributes. The first expression divided the number of crime incidents by 2010 population values. The second expression multiplied the values calculated from the first expression by 10,000.
+Next, the code prepared to update these attributes and defined two expressions to carry out the necessary calculations. The first expression divided the number of crime incidents by 2010 population values. The second expression multiplied the values calculated from the first expression by 10,000.
 ```
 expression1 = QgsExpression('"CCN_count"/"POP_2010"')
 expression2 = QgsExpression('"per_person"*10000')
@@ -62,10 +62,16 @@ with edit(crimesjoin):
         crimesjoin.updateFeature(f)
 ```
 The second function multiplied the values from the previous function and updated its attribute fields. This function calculated the number of crime incidents per 10,000 people in each ward. 
-with edit (crimesjoin):
 ```
+with edit (crimesjoin):
 for f in crimesjoin.getFeatures():
         context.setFeature(f)
         f['per10thous'] = expression2.evaluate(context)
         crimesjoin.updateFeature(f)
 ```
+Next, the code printed a list of crime incidents per 10,000 for each ward. Finally, the code deleted the join layer from the display.  The code then repeated this process for the 2017 shooting incidents joined layer, beginning with the creation of two new attributes and ending with the deletion of the joined layer from the display.
+
+# Results
+The number of gun crimes per 10,000 people was subtracted by the number of detected shooting incidents in 2017 per 10,000 people. The wards with the greatest positive difference were wards two and three. This suggests that more gun crimes in these wards were being committed than detected by ShotSpotter in 2017. Given these results, I recommended that wards two and three should be covered be an expanded gunshot detection network. 
+
+The results of this calculation, however, also suggests that far more shootings were being detected by ShotSpotter that gun crimes committed in 2017. This provides a limitation to my analysis as my recommendation was only based on positive differences when subtracting the number of gun crimes committed by the number of shooting incidents detected. Additionally, another limitation to my analysis is the age of the data used. Both the number of gun crimes committed and number of shootings detected were based on 2017 data. The prevalence of gun crimes across all DC wards may have significantly changed since then. Furthermore, the values for the populations of each DC ward were taken from 2010. Population values may have shifted across wards in the past 10 years.
